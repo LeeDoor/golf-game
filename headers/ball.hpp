@@ -1,15 +1,18 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "vector.hpp"
 
 class Ball {
 private:
-    const int friction = 0.1;
-    sf::Vector2f velocity_;
+    const float friction = 2;
+    Vector velocity_;
     sf::CircleShape shape_;
 public:
     Ball();
     Ball(sf::CircleShape shape_);
 
-    void ApplyForce(sf::Vector2f force);
-    void UpdateMove();
+    sf::CircleShape getShape();
+
+    void applyForce(Vector force);
+    void update();
 };

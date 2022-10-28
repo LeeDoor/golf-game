@@ -1,14 +1,23 @@
 #include "headers/ball.hpp"
+#include <iostream>
 
 Ball::Ball() {}
 Ball::Ball(sf::CircleShape shape) : shape_(shape){}
 
-void Ball::ApplyForce(sf::Vector2f force) {
-    if(velocity_.x == 0 && velocity_.y == 0) {
+void Ball::applyForce(Vector force) {
+    if(velocity_ == 0) {
         velocity_ += force;
     }
 }
 
-void Ball::UpdateMove() {
-    shape_.setPosition();
+sf::CircleShape Ball::getShape(){
+    return shape_;
+}
+
+void Ball::update() {
+    if(velocity_.lengthSqrt() > 0) {
+        shape_.setPosition(shape_.getPosition() + velocity_.toSfmlVectorF());
+        if(velocity_.length() > friction) velocity_ /= friction;
+        else velocity_ = Vector();
+    }
 }

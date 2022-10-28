@@ -13,7 +13,6 @@ public:
 
     float length();
     float lengthSqrt();
-    void ChangeLength(float decreaseVal);
 
     void normalize();
 
@@ -27,10 +26,26 @@ public:
     Vector  operator / (Vector other);
     void    operator /=(Vector other);
 
+    Vector  operator + (float value);
+    void    operator +=(float value);
+    Vector  operator - (float value);
+    void    operator -=(float value);
+    Vector  operator / (float value);
+    void    operator /=(float value);
+
     bool operator ==(Vector other);
     bool operator !=(Vector other);
     bool operator > (Vector other);
     bool operator < (Vector other);
     bool operator <=(Vector other);
     bool operator >=(Vector other);
+
+    bool operator ==(float value);
+    bool operator !=(float value);
+    bool operator > (float value);
+    bool operator < (float value);
+    bool operator <=(float value);
+    bool operator >=(float value);
+
+    friend std::ostream& operator<<(std::ostream& os, Vector vector);
 };
