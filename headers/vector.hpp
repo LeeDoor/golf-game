@@ -25,6 +25,8 @@ public:
     void    operator -=(Vector other);
     Vector  operator / (Vector other);
     void    operator /=(Vector other);
+    Vector  operator * (Vector other);
+    void    operator *=(Vector other);
 
     Vector  operator + (float value);
     void    operator +=(float value);

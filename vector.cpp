@@ -32,6 +32,8 @@ Vector  Vector::operator - (Vector other) { return Vector(x - other.x, y - other
 void    Vector::operator -=(Vector other) { x -= other.x; y -= other.y; }
 Vector  Vector::operator / (Vector other) { return Vector(x / other.x, y / other.y);}
 void    Vector::operator /=(Vector other) { x /= other.x; y /= other.y; }
+Vector  Vector::operator * (Vector other) { return Vector(x *= other.x, y *= other.y); }
+void    Vector::operator *=(Vector other) { x *= other.x; y *= other.y; }
 
 Vector  Vector::operator + (float value) { return Vector(x + value, y + value);}
 void    Vector::operator +=(float value) { x += value; y += value; }
