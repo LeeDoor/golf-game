@@ -34,6 +34,8 @@ public:
     void    operator -=(float value);
     Vector  operator / (float value);
     void    operator /=(float value);
+    Vector  operator * (float value);
+    void    operator *=(float value);
 
     bool operator ==(Vector other);
     bool operator !=(Vector other);

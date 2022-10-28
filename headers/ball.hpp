@@ -5,7 +5,8 @@
 class Ball {
 private:
     const float friction = 2;
-    Vector velocity_;
+    Vector direction_;
+    float force_;
     sf::CircleShape shape_;
 public:
     Ball();
@@ -13,6 +14,6 @@ public:
 
     sf::CircleShape getShape();
 
-    void applyForce(Vector force);
+    void applyForce(Vector direction, float force);
     void update();
 };
