@@ -9,26 +9,36 @@ Vector::Vector(sf::Vector2i vector) : x(vector.x), y(vector.y){}
 float Vector::length(){
     return sqrt(x * x + y * y);
 }
-
-void Vector::ChangeLength(float decreaseVal) {
-    
+float Vector::lengthSqrt(){
+    return x * x + y * y;
 }
 
-void Vector::normalize();
+void Vector::ChangeLength(float decreaseVal) {
+    x = decreaseVal / length();
+    y = decreaseVal / length();
+}
 
-sf::Vector2f Vector::toSfmlVectorF();
-sf::Vector2i Vector::toSfmlVectorI();
+void Vector::normalize() {
+    ChangeLength(1);
+}
 
-Vector  Vector::operator + (Vector other);
-void    Vector::operator +=(Vector other);
-Vector  Vector::operator - (Vector other);
-void    Vector::operator -=(Vector other);
-Vector  Vector::operator / (Vector other);
-void    Vector::operator /=(Vector other);
+sf::Vector2f Vector::toSfmlVectorF() {
+    return sf::Vector2f (x, y);
+}
+sf::Vector2i Vector::toSfmlVectorI() {
+    return sf::Vector2i (x, y);
+}
 
-bool Vector::operator ==(Vector other);
-bool Vector::operator !=(Vector other);
-bool Vector::operator > (Vector other);
-bool Vector::operator < (Vector other);
-bool Vector::operator <=(Vector other);
-bool Vector::operator >=(Vector other);
+Vector  Vector::operator + (Vector other) { return Vector(x + other.x, y + other.y);}
+void    Vector::operator +=(Vector other) { x += other.x; y += other.y; }
+Vector  Vector::operator - (Vector other) { return Vector(x - other.x, y - other.y);}
+void    Vector::operator -=(Vector other) { x -= other.x; y -= other.y; }
+Vector  Vector::operator / (Vector other) { return Vector(x / other.x, y / other.y);}
+void    Vector::operator /=(Vector other) { x /= other.x; y /= other.y; }
+
+bool Vector::operator ==(Vector other) { return x == other.x && y == other.y; }
+bool Vector::operator !=(Vector other) { return x != other.x && y != other.y; }
+bool Vector::operator > (Vector other) { return lengthSqrt() > other.lengthSqrt(); }
+bool Vector::operator < (Vector other) { return lengthSqrt() < other.lengthSqrt(); }
+bool Vector::operator <=(Vector other) { return lengthSqrt() <= other.lengthSqrt(); }
+bool Vector::operator >=(Vector other) { return lengthSqrt() >= other.lengthSqrt(); }
