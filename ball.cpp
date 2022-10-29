@@ -4,12 +4,13 @@
 Ball::Ball() {
     direction_ = Vector();
     force_ = 0;
-}
-Ball::Ball(sf::CircleShape shape) : Ball(){
-    shape_ = shape;
+
+    shape_ = std::make_shared<sf::CircleShape>(20);
+    shape_->setPosition(300, 300);
+    shape_->setFillColor(sf::Color::White);
 }
 
-sf::CircleShape Ball::getShape(){
+std::shared_ptr<sf::CircleShape> Ball::getShape(){
     return shape_;
 }
 
@@ -21,7 +22,7 @@ void Ball::applyForce(Vector direction, float force) {
 
 void Ball::update() {
     if(force_ > 0) {
-        shape_.setPosition((Vector(shape_.getPosition()) + (direction_ * force_)).toSfmlVectorF());
+        shape_->setPosition((Vector(shape_->getPosition()) + (direction_ * force_)).toSfmlVectorF());
         force_ -= friction;
         if(force_ <= 0) force_ = 0;
     }
