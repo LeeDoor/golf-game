@@ -74,6 +74,7 @@ bool Vector::isPointOnSegment (Vector p1, Vector p2) {
     float segLeng = (p1 - p2).length();
     float aToPoint = (p1 - *this).length();
     float bToPoint = (p2 - *this).length();
+    std::cout << (segLeng == aToPoint + bToPoint) << "\n\n\n\n\n\n";
     return segLeng == aToPoint + bToPoint;
 }
 
@@ -81,12 +82,19 @@ bool Vector::getIntersection(Vector p1, Vector p2, Vector p3, Vector p4, Vector&
     double k1, b1, k2, b2; // coefficents of first and second graph
     countLinearFunc(p1, p2, k1, b1); 
     countLinearFunc(p3, p4, k2, b2);
-    //std::cout << k1 << " " << b1 << " " << k2 << " " << b2 << std::endl;
+    std::cout   << "k1: " << k1 << " b1: " << b1 
+                << " k2: " << k2 << " b2: " << b2 
+                << std::endl << "p1: " << p1 
+                << std::endl << "p2: " << p2
+                << std::endl << "p3: " << p3
+                << std::endl << "p4: " << p4
+                << std::endl;
+
     float x = (b2 - b1) / (k1 - k2); // coords of common dot
     float y = k1 * x + b1;
 
     //check if this dot is outside the segments
-    //std::cout << "x: " << x << " y: " << y << std::endl;
+    std::cout << "x: " << x << " y: " << y << "\t";
     res = Vector(x, y);
     return res.isPointOnSegment(p1, p2); 
 }

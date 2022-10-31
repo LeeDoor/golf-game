@@ -1,5 +1,6 @@
 #include "headers/game_manager.hpp"
 #include <limits>
+#include <iostream>
 
 std::shared_ptr<sf::RenderWindow>   GameManager::window;
 std::shared_ptr<Ball>               GameManager::ball;
@@ -15,6 +16,7 @@ bool GameManager::wallInter (Wall wall, Vector p1, Vector p2, Vector& inters, Ve
         Vector res;
         if (Vector::getIntersection(p1, p2, verts[i], verts[j], res)) {
             if(res.length() < len) {
+                std::cout << "intersection! " << res << std::endl;
                 inters = res;
                 isInters = true;
                 len = inters.length();
@@ -54,8 +56,8 @@ void GameManager::start() {
 
     walls = std::make_shared<std::vector<Wall>>();
     
-    Wall w1(Vector(200, 200), 30, Vector(200, 10));
-    Wall w2(Vector(100, 400), 60, Vector(400, 20));
+    Wall w1(Vector(200, 200), 0, Vector(200, 10));
+    Wall w2(Vector(100, 400), 0, Vector(400, 20));
     walls->push_back(w1);
     walls->push_back(w2);
 
@@ -73,7 +75,7 @@ void GameManager::mainLoop() {
             if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Button::Left){
                 Vector mouse = sf::Mouse::getPosition(*window.get());
                 Vector move = Vector(ball->getShape()->getPosition()) - mouse;
-                ball->applyForce(move, 20);
+                ball->applyForce(move, 50);
             }
         }
         ball->update();

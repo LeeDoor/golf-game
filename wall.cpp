@@ -12,7 +12,7 @@ Wall::Wall(Vector pos, float rot, Vector size) : Wall() {
 std::vector<Vector> Wall::getAllVertices() {
     std::vector<Vector> res;
     for(int i = 0; i < form->getPointCount(); ++i) {
-        res.push_back(form->getPoint(i));
+        res.push_back(form->getPoint(i) + form->getPosition());
     }
     return res;
 }

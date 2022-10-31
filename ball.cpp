@@ -10,6 +10,7 @@ Ball::Ball() {
     shape_ = std::make_shared<sf::CircleShape>(20);
     shape_->setPosition(300, 300);
     shape_->setFillColor(sf::Color::White);
+    shape_->setOrigin(shape_->getRadius(), shape_->getRadius());
 }
 
 std::shared_ptr<sf::CircleShape> Ball::getShape(){
@@ -28,7 +29,6 @@ void Ball::update() {
         Vector verts;
         Wall wall;
         bool isIntersects = GameManager::getClosestInter(Vector(shape_->getPosition()), vectorToAdd(), inters, wall, verts);
-
         if(isIntersects) {
 
             //
@@ -38,7 +38,9 @@ void Ball::update() {
             perp.normalize();
             Vector mirror = direction_ - direction_ * perp * perp * (float)2.0; // new direction
             shape_->setPosition(inters.toSfmlVectorF());
+            std::cout << direction_ << std::endl;
             direction_ = mirror;
+            std::cout << direction_ << std::endl;
             // сделать добавление лишней скорости
         }
 
