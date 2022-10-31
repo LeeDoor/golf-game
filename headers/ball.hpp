@@ -9,6 +9,8 @@ private:
     Vector direction_;
     float force_;
     std::shared_ptr<sf::CircleShape> shape_;
+
+    Vector vectorToAdd();
 public:
     Ball();
 
@@ -16,4 +18,5 @@ public:
 
     void applyForce(Vector direction, float force);
     void update();
+    void draw(std::shared_ptr<sf::RenderWindow> win);
 };

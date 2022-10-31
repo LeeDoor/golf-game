@@ -1,5 +1,7 @@
 #include "headers/ball.hpp"
-#include <iostream>
+#include <iostream> 
+#include "headers/game_manager.hpp"
+#include "headers/wall.hpp"
 
 Ball::Ball() {
     direction_ = Vector();
@@ -22,8 +24,35 @@ void Ball::applyForce(Vector direction, float force) {
 
 void Ball::update() {
     if(force_ > 0) {
-        shape_->setPosition((Vector(shape_->getPosition()) + (direction_ * force_)).toSfmlVectorF());
+        Vector inters;
+        Vector verts;
+        Wall wall;
+        bool isIntersects = GameManager::getClosestInter(Vector(shape_->getPosition()), vectorToAdd(), inters, wall, verts);
+
+        if(isIntersects) {
+
+            //
+
+            //perpendicular
+            Vector perp = Vector::getPerpendicular(wall.getAllVertices()[verts.x], wall.getAllVertices()[verts.y], inters);
+            perp.normalize();
+            Vector mirror = direction_ - direction_ * perp * perp * (float)2.0; // new direction
+            shape_->setPosition(inters.toSfmlVectorF());
+            direction_ = mirror;
+            // сделать добавление лишней скорости
+        }
+
+
+        shape_->setPosition(vectorToAdd().toSfmlVectorF());
         force_ -= friction;
         if(force_ <= 0) force_ = 0;
     }
+}
+
+Vector Ball::vectorToAdd(){
+    return Vector(shape_->getPosition()) + direction_ * force_;
+}
+
+void Ball::draw(std::shared_ptr<sf::RenderWindow> win){
+    win->draw(*shape_);
 }

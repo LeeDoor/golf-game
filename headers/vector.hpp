@@ -3,11 +3,13 @@
 
 class Vector { 
 private:
+    static void countLinearFunc (Vector p1, Vector p2, double &k, double &b);
+
 public:
     float x, y;
 
     Vector();
-    Vector(int x, int y);
+    Vector(float x, float y);
     Vector(sf::Vector2f vector);
     Vector(sf::Vector2i vector);
 
@@ -52,4 +54,8 @@ public:
     bool operator >=(float value);
 
     friend std::ostream& operator<<(std::ostream& os, Vector vector);
+
+    bool isPointOnSegment (Vector p1, Vector p2);
+    static Vector getPerpendicular (Vector p1, Vector p2, Vector start);    
+    static bool getIntersection(Vector p1, Vector p2, Vector p3, Vector p4, Vector& res);
 };
